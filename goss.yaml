@@ -22,4 +22,6 @@ command:
   
   docker:
     exec: "docker version"
+    stdout:
+      - "Version:           19"
     exit-status: 0
