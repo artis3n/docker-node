@@ -21,9 +21,6 @@ jobs:
 
       - uses: docker/setup-buildx-action@v1
 
-      - name: Lint Dockerfile
-        uses: brpaz/hadolint-action@eb9b96be611b84830aa1babacfb7070ecd2a8b1b # v1.1.0
-
       - name: Install Goss
         uses: e1himself/goss-installation-action@v1.0.3
         with:
