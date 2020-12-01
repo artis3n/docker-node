@@ -20,6 +20,10 @@ command:
       - "1."
     stderr: []
   
+  docker-test:
+    exec: "docker pull docker:latest"
+    stdout: 0
+  
   docker:
     exec: "docker version"
     stdout:
