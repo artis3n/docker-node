@@ -44,4 +44,4 @@ jobs:
           cache-to: type=local,dest=/tmp/.buildx-cache
 
       - name: Test the image
-        run: dgoss run -it ${{ env.IMAGE_NAME }}:test
+        run: dgoss run -it --privileged ${{ env.IMAGE_NAME }}:test

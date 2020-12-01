@@ -3,21 +3,21 @@ command:
     exec: "node --version"
     exit-status: 0
     stdout:
-      - "^v12"
+      - "v12."
     stderr: []
   
   npm:
     exec: "npm --version"
     exit-status: 0
     stdout:
-      - "^6"
+      - "6."
     stderr: []
   
   yarn:
     exec: "yarn --version"
     exit-status: 0
     stdout:
-      - "^1"
+      - "1."
     stderr: []
   
   docker:
