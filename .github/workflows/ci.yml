@@ -1,0 +1,50 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+env:
+  IMAGE_NAME: artis3n/act-docker-node
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - uses: docker/setup-buildx-action@v1
+
+      - name: Lint Dockerfile
+        uses: brpaz/hadolint-action@eb9b96be611b84830aa1babacfb7070ecd2a8b1b # v1.1.0
+
+      - name: Install Goss
+        uses: e1himself/goss-installation-action@v1.0.3
+        with:
+          version: 'v0.3.13'
+
+      - name: Cache
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Build the Docker image
+        uses: docker/build-push-action@v2
+        with:
+          push: false
+          tags: ${{ env.IMAGE_NAME }}:test
+          load: true
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
+
+      - name: Test the image
+        run: dgoss run ${{ env.IMAGE_NAME }}:test
