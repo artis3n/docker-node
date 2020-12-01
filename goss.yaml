@@ -2,23 +2,14 @@ command:
   node:
     exec: "node --version"
     exit-status: 0
-    stdout:
-      - "v12."
-    stderr: []
   
   npm:
     exec: "npm --version"
     exit-status: 0
-    stdout:
-      - "6."
-    stderr: []
   
   yarn:
     exec: "yarn --version"
     exit-status: 0
-    stdout:
-      - "1."
-    stderr: []
   
   docker:
     exec: "docker version"
