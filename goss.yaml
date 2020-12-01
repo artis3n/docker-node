@@ -1,0 +1,16 @@
+command:
+  node:
+    exec: "node --version"
+    exit-status: 0
+  
+  npm:
+    exec: "npm --version"
+    exit-status: 0
+  
+  yarn:
+    exec: "yarn --version"
+    exit-status: 0
+  
+  docker:
+    exec: "docker version"
+    exit-status: 0
