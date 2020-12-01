@@ -44,4 +44,4 @@ jobs:
           cache-to: type=local,dest=/tmp/.buildx-cache
 
       - name: Test the image
-        run: dgoss run -it --privileged ${{ env.IMAGE_NAME }}:test
+        run: dgoss run -it -v /var/run/docker.sock:/var/run/docker.sock ${{ env.IMAGE_NAME }}:test

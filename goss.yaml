@@ -20,12 +20,6 @@ command:
       - "1."
     stderr: []
   
-  docker-test:
-    exec: "docker pull docker:latest"
-    exit-status: 0
-  
   docker:
     exec: "docker version"
-    stdout:
-      - "Version:           19"
     exit-status: 0
