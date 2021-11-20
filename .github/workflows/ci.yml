@@ -19,29 +19,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2.3.5
 
-      - uses: docker/setup-buildx-action@v1.6.0
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
 
       - name: Install Goss
         uses: e1himself/goss-installation-action@v1.0.4
         with:
-          version: 'v0.3.15'
+          version: 'v0.3.16'
 
-      - name: Cache
-        uses: actions/cache@v2.1.6
+      - name: Build and Export
+        uses: docker/build-push-action@v2
         with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-
-
-      - name: Build the Docker image
-        uses: docker/build-push-action@v2.7.0
-        with:
+          context: .
+          platforms: linux/amd64
           push: false
-          tags: ${{ env.IMAGE_NAME }}:test
           load: true
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache
+          tags: ${{ env.IMAGE_NAME }}:test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: Test the image
         run: dgoss run -it -v /var/run/docker.sock:/var/run/docker.sock ${{ env.IMAGE_NAME }}:test
